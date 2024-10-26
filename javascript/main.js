@@ -293,6 +293,12 @@ $(".value_input").on("input", function() {
       window.history.back();
     });
   };
+  const backPageHome = function () {
+    $(".back-home-btn").on("click", function (e) {
+      e.preventDefault();
+      window.location.href = "/";
+    });
+  };
   /* setTimeIn
  ------------------------------------------------------------------------------------- */
   const setTimeIn = function () {
@@ -336,6 +342,7 @@ $(".value_input").on("input", function() {
     tfTabs();
     suggestInput();
     tfPanel();
+    backPageHome();
     backPage();
     setTimeIn();
     hidePopupNoti();

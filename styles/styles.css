@@ -1494,7 +1494,11 @@ textarea.form-textarea[rows] {
   position: relative;
   height: 50px;
 }
-.tf-statusbar .back-btn {
+.tf-statusbar .back-btn{
+  left: 16px;
+  position: absolute;
+}
+.tf-statusbar .back-home-btn{
   left: 16px;
   position: absolute;
 }
@@ -2603,7 +2607,7 @@ textarea.form-textarea[rows] {
 .tf-topbar {
   position: relative;
 }
-.tf-topbar .back-btn,
+.tf-topbar .back-btn, .tf-topbar .back-home-btn,
 .tf-topbar .clear-panel {
   position: absolute;
   left: 16px;
