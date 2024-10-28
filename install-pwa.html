@@ -4,20 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
-    <title>Instal PWA</title>
+    <title>Instal Aplikasi SakuYa!</title>
+    <style>
+        /* Styling untuk tampilan yang lebih menarik */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+        }
+        #installContainer {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 300px;
+        }
+        #downloadBtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+        #downloadBtn:hover {
+            background-color: #45a049;
+        }
+        .description {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+        .app-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+        }
+    </style>
 </head>
 <body>
-    <button id="downloadBtn">Unduh Aplikasi</button>
+    <div id="installContainer">
+        <img src="images/logo.png" alt="App Logo" class="app-logo">
+        <h1>Instal SakuYa!</h1>
+        <p class="description">Tambahkan aplikasi SakuYa! ke layar utama untuk akses cepat dan praktis.</p>
+        <button id="downloadBtn">Unduh Aplikasi</button>
+    </div>
 
     <script>
-        let deferredPrompt; // Menyimpan referensi ke event sebelum ditampilkan
+        let deferredPrompt;
 
         // Menangkap event 'beforeinstallprompt'
         window.addEventListener('beforeinstallprompt', (e) => {
-            // Mencegah prompt default
             e.preventDefault();
-            // Simpan event untuk digunakan nanti
             deferredPrompt = e;
+            document.getElementById('installContainer').style.display = 'block'; // Menampilkan banner
         });
 
         // Cek jika aplikasi sudah terinstal
@@ -27,23 +75,28 @@
 
         document.getElementById('downloadBtn').addEventListener('click', () => {
             if (isAppInstalled()) {
-                alert('Aplikasi sudah terinstal. Tidak perlu menginstal lagi.');
+                alert('Aplikasi sudah terinstal di perangkat Anda.');
                 return;
             }
-            // Simulasikan proses pengunduhan
-            alert('Aplikasi sedang diunduh...');
-            // Setelah pengunduhan selesai, tampilkan prompt untuk instal
+
+            // Jika proses instalasi belum dimulai
             if (deferredPrompt) {
-                // Tampilkan prompt instalasi
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
-                        console.log('Pengguna menerima prompt instalasi');
+                        alert('Aplikasi berhasil diinstal!');
                     } else {
-                        console.log('Pengguna menolak prompt instalasi');
+                        alert('Instalasi dibatalkan.');
                     }
+                    deferredPrompt = null;
                 });
             }
+        });
+
+        // Periksa kembali saat aplikasi diinstal
+        window.addEventListener('appinstalled', () => {
+            alert('Terima kasih telah menginstal aplikasi!');
+            document.getElementById('installContainer').style.display = 'none';
         });
     </script>
 </body>
